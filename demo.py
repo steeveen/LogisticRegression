@@ -34,5 +34,5 @@ trainY=trainY.reshape(1,-1)
 testY=testY.reshape(1,-1)
 featureNum=4
 lg=LogisticRegression(featureNum)
-lg.fit(trainX,trainY,1000)
+lg.fit(trainX,trainY,20)
 lg.eva(testX,testY)

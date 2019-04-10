@@ -21,7 +21,7 @@ code is far away from bugs with the god animal protecting
 '''
 import numpy as np
 def acc(y_t,y_p):
-    return np.sum(np.logical_not(np.logical_xor(y_t,y_p)))/len(y_t)
+    return np.sum(np.logical_not(np.logical_xor(y_t,y_p)))/np.size(y_t)
 def recall(y_t,y_p):
     return np.sum(np.logical_and(y_t,y_p))/np.sum(y_t)
 def precision(y_t,y_p):

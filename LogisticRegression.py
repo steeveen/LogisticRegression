@@ -60,7 +60,7 @@ class LogisticRegression:
         for _ in range(epoch):
             # TODO 现在一个epoch就是i一个batch，即采用 梯度下降法
             self.trainOneBatch(x,y)
-            print('%d/%d is over ,the loss is %f'%(_,epoch,np.sum(self.lossFun(y,self.predict(x)))))
+            print('%d/%d is over ,the loss is %f'%(_,epoch,np.mean(self.lossFun(y,self.predict(x)))))
 
     def trainOneBatch(self,x,y):
         #训练一个Batch
@@ -73,12 +73,12 @@ class LogisticRegression:
         self.dw = np.dot( x, self.dz.T) / self.inputSize
         self.db = np.sum(self.dz) / self.inputSize
 
-        self.w += self.lr * self.dw
-        self.b += self.lr * self.db
+        self.w -= self.lr * self.dw
+        self.b -= self.lr * self.db
     def predict(self,x):
         return self.act(np.dot( self.w.T,x)+self.b)
     def eva(self,x,y):
         y_p=self.predict(x)
-        loss=np.sum(self.lossFun(y,y_p))
+        loss=np.mean(self.lossFun(y,y_p))
         print('loss is '+str(loss))
         print('acc is '+str(acc(y,(y_p>0.5).astype(np.int8))))
