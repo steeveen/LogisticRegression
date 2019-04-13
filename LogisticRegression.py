@@ -43,7 +43,7 @@ class LogisticRegression:
         '''
         self.act = sigmoid
         self.lossFun=crossEntropy
-        self.lr=0.001
+        self.lr=config.get('lr') if config.get('lr')!=None  else 0.001
 
     def fit(self, x, y,epoch=20):
         '''
@@ -70,8 +70,10 @@ class LogisticRegression:
         self.da = (1 - y) / (1 - self.a) - y / self.a  # (1,n)
         # self.dz=self.da*(self.a*(1-self.a))#(1,n)
         self.dz = self.a - y  # (1,n)
-        self.dw = np.dot( x, self.dz.T) / self.inputSize
-        self.db = np.sum(self.dz) / self.inputSize
+        self.dw = np.dot( x, self.dz.T) /x.shape[1]
+        self.db = np.sum(self.dz) / x.shape[1]
+        # self.dw = np.dot(x, self.dz.T) / self.inputSize
+        # self.db = np.sum(self.dz) / self.inputSize
 
         self.w -= self.lr * self.dw
         self.b -= self.lr * self.db
